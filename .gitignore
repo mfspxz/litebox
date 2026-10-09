@@ -197,3 +197,7 @@ dev_bench/unixbench/*.zip
 ### Direnv ###
 .direnv
 .envrc
+
+# hostile-tests: generated fixtures and receipts (rebuild via hostile/build.sh)
+/hostile/bin/
+/hostile-tests/receipts/

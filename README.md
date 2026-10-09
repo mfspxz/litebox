@@ -22,6 +22,30 @@ Example use cases include:
 
 ![LiteBox and related projects](./.figures/litebox.svg)
 
+## Hostile-guest containment suite
+
+`hostile/` holds five hostile ELF fixtures (with C sources) that attack the
+guest/host boundary: procfs escape, raw-syscall network bypass, shim socket
+abuse, filesystem escape, and memory exhaustion. `hostile-tests/` is a Rust
+integration suite that launches each fixture as a LiteBox guest via the Linux
+userland runner, asserts **containment** (not just "it ran"), and writes a JSON
+receipt per fixture to `hostile-tests/receipts/<fixture>.json`:
+
+```json
+{"fixture":"a_proc_mem","sha256":"…","policy":"no-net,ro-root","verdict":"contained","ts":"…"}
+```
+
+Run it:
+
+```sh
+./hostile/build.sh          # compile the five fixtures (gcc -static)
+cargo test -p hostile-tests # 5/5 containment assertions + receipts
+```
+
+Each test sha256-pins its fixture binary before running. A fixture the current
+LiteBox cannot contain gets verdict `"gap"` — a failing containment is a
+finding, not a test bug. This suite is test-only; it does not modify LiteBox core.
+
 ## Contributing
 
 See the following files for details:
