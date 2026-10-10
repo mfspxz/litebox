@@ -1,0 +1,8 @@
+{
+  "fixture": "c_shim_socket",
+  "sha256": "fae87fbe8390d32b81d37f2494018203cee0fc4dcd4399a4c95a17aacccc30ff",
+  "policy": "no-net,no-tun",
+  "verdict": "contained",
+  "ts": "1791561874",
+  "detail": "timed_out=true exit=None signal=Some(9) stdout=\"creating socket via shim...\\nsocket created, attempting connect (should hang)...\\n\""
+}

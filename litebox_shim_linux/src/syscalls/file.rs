@@ -360,6 +360,24 @@ impl<Platform: ShimPlatform> Task<Platform> {
         flags: OFlags,
         mode: Mode,
     ) -> Result<FileFd<Platform>, Errno> {
+        // organelle-host pilot telemetry: record the open attempt (path, write
+        // intent, outcome). Additive; no behavior change.
+        let path_str = path
+            .as_rust_str()
+            .map(alloc::string::ToString::to_string)
+            .unwrap_or_else(|_| alloc::string::String::from("<invalid>"));
+        let write = flags.intersects(OFlags::WRONLY | OFlags::RDWR) && !flags.contains(OFlags::PATH);
+        let result = self.do_open_impl(path, flags, mode);
+        crate::telemetry::record_file_open(&path_str, write, result.is_ok());
+        result
+    }
+
+    fn do_open_impl(
+        &self,
+        path: impl path::Arg,
+        flags: OFlags,
+        mode: Mode,
+    ) -> Result<FileFd<Platform>, Errno> {
         let mode = mode & !self.get_umask();
         let files = self.files.borrow();
         let fs = self.fs.borrow();

@@ -1,0 +1,8 @@
+{
+  "fixture": "b_raw_socket",
+  "sha256": "206d414a7386406ca6dffe644cf94c619afc9dc8042e61908b257afd2be1fcc0",
+  "policy": "no-net,seccomp-deny-default",
+  "verdict": "contained",
+  "ts": "1791561864",
+  "detail": "exit=None signal=Some(31) stdout=\"attempting raw socket via int $0x80...\\n\""
+}

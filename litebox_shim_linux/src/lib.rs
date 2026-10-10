@@ -52,6 +52,8 @@ pub mod loader;
 pub(crate) mod stdio;
 pub mod syscalls;
 pub mod transport;
+// organelle-host pilot telemetry (additive patch)
+pub mod telemetry;
 mod wait;
 
 pub type DefaultFS<Platform> = LinuxFS<Platform>;
@@ -687,7 +689,16 @@ impl<Platform: ShimPlatform> Task<Platform> {
     ///
     /// Unsupported syscalls or arguments would trigger a panic for development purposes.
     fn handle_syscall_request(&self, ctx: &mut litebox_common_linux::PtRegs) {
-        let return_value = match self.do_syscall(ctx) {
+        // organelle-host pilot telemetry: capture the raw syscall number before
+        // dispatch (do_syscall may mutate ctx).
+        #[cfg(target_arch = "x86_64")]
+        let raw_nr: u32 = ctx.orig_rax as u32;
+        #[cfg(not(target_arch = "x86_64"))]
+        let raw_nr: u32 = 0;
+        let result = self.do_syscall(ctx);
+        // Record after dispatch so `ok` reflects the shim's verdict.
+        crate::telemetry::record_syscall(raw_nr, result.is_ok());
+        let return_value = match result {
             Ok(v) => v,
             Err(err) => (err.as_neg() as isize).reinterpret_as_unsigned(),
         };

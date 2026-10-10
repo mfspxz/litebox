@@ -1,0 +1,8 @@
+{
+  "fixture": "d_write_outside",
+  "sha256": "1727a42112e509d623ba145dce72ccf9e35dfb17ee04aa92561dbecbefa3e99b",
+  "policy": "ro-root,scratch-tmp-only",
+  "verdict": "contained",
+  "ts": "1791561866",
+  "detail": "exit=Some(0) stdout=\"OK: write to /etc/evil denied\\nWRITE SUCCEEDED: /tmp/evil (4 bytes)\\nOK: write to /bin/evil denied\\n\" host_clean=true"
+}

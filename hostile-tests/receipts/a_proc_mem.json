@@ -1,0 +1,8 @@
+{
+  "fixture": "a_proc_mem",
+  "sha256": "17958b4e748037a71819f1e309baac8afcea987dfc605c89854a4e5de8839c1c",
+  "policy": "no-net,ro-root,no-proc",
+  "verdict": "contained",
+  "ts": "1791561865",
+  "detail": "exit=Some(1) signal=None stdout=\"OK: normal open failed (shim has no /proc)\\nmmap failed\\n\""
+}

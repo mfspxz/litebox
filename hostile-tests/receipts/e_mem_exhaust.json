@@ -1,0 +1,8 @@
+{
+  "fixture": "e_mem_exhaust",
+  "sha256": "6f529110c289eb1f4f8c37489bf05fea682c671cf0a16d9110e1405a6b1eb0d7",
+  "policy": "rlimit-as=512MB",
+  "verdict": "contained",
+  "ts": "1791561871",
+  "detail": "exit=Some(0) signal=None stdout_tail=\"OK: malloc failed at 400 MB (RLIMIT_AS enforced)\""
+}
