@@ -1,4 +1,4 @@
-[Production/Verified] — CI green on the latest workflow run; held to production standard.
+[Active R&D Lab] — CI green on the latest workflow run; held to production standard.
 
 # LiteBox
 
