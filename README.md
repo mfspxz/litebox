@@ -1,3 +1,5 @@
+[Production/Verified] — CI green on the latest workflow run; held to production standard.
+
 # LiteBox
 
 > A security-focused library OS
